@@ -379,6 +379,158 @@ export interface Database {
           },
         ]
       }
+      receptions: {
+        Row: {
+          id: string
+          reception_date: string
+          reception_number: string | null
+          counterparty_id: string
+          user_id: string
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          reception_date: string
+          reception_number?: string | null
+          counterparty_id: string
+          user_id?: string
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          reception_date?: string
+          reception_number?: string | null
+          counterparty_id?: string
+          user_id?: string
+          created_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "receptions_counterparty_id_fkey"
+            columns: ["counterparty_id"]
+            isOneToOne: false
+            referencedRelation: "counterparties"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "receptions_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      accepted_motors: {
+        Row: {
+          id: string
+          reception_id: string
+          subdivision_id: string | null
+          position_in_reception: number
+          motor_service_description: string
+          user_id: string
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          reception_id: string
+          subdivision_id?: string | null
+          position_in_reception: number
+          motor_service_description: string
+          user_id?: string
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          reception_id?: string
+          subdivision_id?: string | null
+          position_in_reception?: number
+          motor_service_description?: string
+          user_id?: string
+          created_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "accepted_motors_reception_id_fkey"
+            columns: ["reception_id"]
+            isOneToOne: false
+            referencedRelation: "receptions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "accepted_motors_subdivision_id_fkey"
+            columns: ["subdivision_id"]
+            isOneToOne: false
+            referencedRelation: "subdivisions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "accepted_motors_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      reception_items: {
+        Row: {
+          id: string
+          accepted_motor_id: string
+          item_description: string
+          work_group: string | null
+          quantity: number
+          price: number
+          upd_document_id: string | null
+          user_id: string
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          accepted_motor_id: string
+          item_description: string
+          work_group?: string | null
+          quantity?: number
+          price?: number
+          upd_document_id?: string | null
+          user_id?: string
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          accepted_motor_id?: string
+          item_description?: string
+          work_group?: string | null
+          quantity?: number
+          price?: number
+          upd_document_id?: string | null
+          user_id?: string
+          created_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "reception_items_accepted_motor_id_fkey"
+            columns: ["accepted_motor_id"]
+            isOneToOne: false
+            referencedRelation: "accepted_motors"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "reception_items_upd_document_id_fkey"
+            columns: ["upd_document_id"]
+            isOneToOne: false
+            referencedRelation: "upd_documents"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "reception_items_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
@@ -421,3 +573,6 @@ export type Subdivision = Tables<'subdivisions'>
 export type RepairOrder = Tables<'repair_orders'>
 export type UPDDocument = Tables<'upd_documents'>
 export type UPDDocumentItem = Tables<'upd_document_items'>
+export type Reception = Tables<'receptions'>
+export type AcceptedMotor = Tables<'accepted_motors'>
+export type ReceptionItem = Tables<'reception_items'>
