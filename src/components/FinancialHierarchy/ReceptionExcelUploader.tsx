@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react'
-import { UploadCloud } from 'lucide-react'
+import { CloudUpload as UploadCloud } from 'lucide-react'
 import { ReceptionExcelRow, parseReceptionExcel } from '../../utils/parseReceptionExcel'
 
 interface ReceptionExcelUploaderProps {
